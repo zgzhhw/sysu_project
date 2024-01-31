@@ -1,0 +1,1 @@
+self.server_files_directory = os.path.join(script_directory, f'server_{server_id}_files')
