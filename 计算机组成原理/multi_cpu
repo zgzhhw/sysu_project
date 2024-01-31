@@ -1,0 +1,41 @@
+# ‘À––Ω· ¯£∫$s0 - 1, $s1 - 2 $s2 - 3  $s3 - 0
+.text
+.globl main
+
+main: 
+  addiu $s0,$zero,-3      # 00fd
+  addi $zero $zero, 0
+  addi $zero $zero, 0
+  addi $zero $zero, 0
+  addiu $s1,$s0,5           # 0402
+  addi $zero $zero, 0
+  addi $zero $zero, 0
+  jal   test                      # 0800
+  addi $zero $zero, 0
+  addu  $s2,$s1,$s0        # 0c03
+ll: 
+  j ll                               # 1000
+  
+test:
+  slt   $s2,$s0,$s1           # 1401
+  addi $zero $zero, 0
+  addi $zero $zero, 0
+  addi $zero $zero, 0
+  sll   $s2,$s2,1               # 1802   (rt)
+  addi $zero $zero, 0
+  addi $zero $zero, 0
+  addi $zero $zero, 0
+loop:
+  addu   $s0,$s0,$s2      # 1cff  1c01
+  addi $zero $zero, 0
+  addi $zero $zero, 0
+  addi $zero $zero, 0
+  slti   $s3,$s0,1             # 2001 2000
+  addi $zero $zero, 0
+  addi $zero $zero, 0
+  addi $zero $zero, 0
+  bne    $s3,$zero,loop  # 2401 2400
+  addi $zero $zero, 0
+  jr     $ra                      # 2800
+  addi $zero $zero, 0
+  
