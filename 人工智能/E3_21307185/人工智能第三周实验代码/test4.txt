@@ -1,0 +1,5 @@
+I(bb)
+U(aa,bb)
+~F(u)
+(~I(y),~U(x,y), F(f(z)))
+(~I(v), ~U(w,v),E(w,f(w)))

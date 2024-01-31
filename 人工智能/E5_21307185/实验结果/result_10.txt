@@ -1,0 +1,22 @@
+(6, 7, 46425) Black
+(8, 7) White
+(7, 8, 160495) Black
+(7, 6) White
+(8, 9, 10000000) Black
+(9, 10) White
+(4, 5, 10000000) Black
+
+level 3
+
+
+(7, 8, 218) Black
+(7, 6) White
+(6, 7, 4237) Black
+(8, 7) White
+(8, 9, 40251) Black
+(9, 10) White
+(4, 5, 10000000) Black
+
+level 2
+
+
