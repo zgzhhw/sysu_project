@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查询表单</title>
+    
+    <!-- 引入 Bootstrap 样式表 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="bg-light"> <!-- 使用 Bootstrap 背景颜色类 -->
+    <div class="container mt-5">
+        <h2 class="mb-4">查询表单</h2>
+
+        <form method="post" action="{% url 'query_person' %}" class="mb-4">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">姓名：</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">查询</button>
+        </form>
+    </div>
+
+    <!-- 自定义背景图片，根据实际情况替换路径 -->
+    <style>
+        body {
+            background-image: url("https://pic1.zhimg.com/v2-1ca4d7c2c94f02d8b049b7645fae288d_r.jpg"); /* 替换为你的背景图片路径 */
+            background-size: cover; /* 控制背景图片尺寸 */
+            background-repeat: no-repeat; /* 防止背景图片重复 */
+        }
+    </style>
+
+    <!-- 引入 Bootstrap JavaScript 文件 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

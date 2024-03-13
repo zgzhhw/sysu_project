@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查询歌曲</title>
+    <!-- 在你的 HTML 模板中引入 Bootstrap 样式表 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="mb-4">查询歌曲</h2>
+        <form method="post" action="{% url 'query_song' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="song_name">歌曲名：</label>
+                <input type="text" name="song_name" class="form-control" id="song_name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">查询</button>
+        </form>
+    </div>
+    <!-- 自定义背景图片，根据实际情况替换路径 -->
+    <style>
+        body {
+            background-image: url("https://images.alphacoders.com/453/thumbbig-45373.webp");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <!-- 引入 Bootstrap JavaScript 文件 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

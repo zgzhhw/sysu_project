@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查询结果</title>
+    <!-- 在你的 HTML 模板中引入 Bootstrap 样式表 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="bg-light"> <!-- 使用 Bootstrap 背景颜色类 -->
+    <div class="container mt-5">
+        <h2 class="mb-4">查询结果</h2>
+
+        {% if persons %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">姓名</th>
+                        <th scope="col">年龄</th>
+                        <th scope="col">成绩</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in persons %}
+                        <tr>
+                            <td>{{ person.name }}</td>
+                            <td>{{ person.age }}</td>
+                            <td>{{ person.score }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-danger">未找到符合条件的人员。</p>
+        {% endif %}
+    </div>
+
+    <!-- 自定义背景图片，根据实际情况替换路径 -->
+    <style>
+        body {
+            background-image: url("https://pic1.zhimg.com/v2-1ca4d7c2c94f02d8b049b7645fae288d_r.jpg"); /* 替换为你的背景图片路径 */
+            background-size: cover; /* 控制背景图片尺寸 */
+            background-repeat: no-repeat; /* 防止背景图片重复 */
+        }
+    </style>
+
+    <!-- 引入 Bootstrap JavaScript 文件 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

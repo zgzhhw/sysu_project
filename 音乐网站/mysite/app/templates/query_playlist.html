@@ -1,0 +1,195 @@
+<!-- templates/query_playlist.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Playlist Details</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 50px 0;
+            height: 100vh;
+            background: linear-gradient(45deg, #E0FFFF, #FAFAD2, #deedb0, #FFB6C1, #F08080, #DDA0DD, #D8BFD8, #DDA0DD, #FFB6C1, #FAFAD2, #f3e69e, #f5adad, #F0E68C); /* 柔和的背景线性渐变色 */
+            background-size: 800% 800%;
+            animation: changeBackground 10s infinite; /* 背景颜色渐变动画 */
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        @keyframes changeBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 20% 50%;
+            }
+            50% {
+                background-position: 40% 50%;
+            }
+            75% {
+                background-position: 60% 50%;
+            }
+            100% {
+                background-position: 80% 50%;
+            }
+        }
+
+
+        tbody {
+            background-color: rgba(255, 255, 255, 0.1); /* 设置表格背景颜色及不透明度 */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animated {
+            animation: fadeIn 0.8s ease;
+        }
+
+        .button {  
+            display: inline-block;  
+            padding: 10px 20px;  
+            color: #fff;  
+            text-decoration: none;  
+            border-radius: 50%; /* 圆形按钮 */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;  
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+            position: relative;
+            background-color: #888; /* 金属材质的颜色 */
+            opacity: 1.5; /* 设置不透明度 */
+        }  
+        .button:hover {  
+            background-color: #666; /* 按下时的颜色 */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* 按下时的阴影效果 */
+            opacity: 1; /* 按下时取消不透明度 */
+        }  
+        .button .tooltip {
+            display: none;
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+        .button:hover .tooltip {
+            display: block;
+        }
+        .button-home {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-back {
+            position: fixed;
+            left: 20px;
+            top: 70px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button i {
+            margin-right: 0px;
+            color: #fff;
+        }
+</style>
+<!-- templates/query_playlist.html -->
+
+
+<body>
+    <div class="animated">
+        <h1>歌单详情信息</h1>
+        <a href="http://127.0.0.1:8000/app/home" class="button button-home">
+            <i class="fa fa-home "></i> 
+            <span class="tooltip">返回主页</span>
+        </a>  
+    
+        <a href="http://127.0.0.1:8000/app/playlists_results" class="button button-back">
+            <i class="fa fa-arrow-left "></i> 
+            <span class="tooltip">返回查询</span>
+        </a>  
+
+        {% if playlist %}
+            <h2>{{ playlist.pl_name }} Songs</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Song Name</th>
+                        <th scope="col">Artist</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Issue Time</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Audio</th>
+                        <th scope="col">操作</th>
+                        <!-- Add more columns if needed -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for song in song_data %}
+                        <tr>
+                            <td>{{ song.song.name }}</td>
+                            <td>{{ song.singer_names_str }}</td>
+                            <td>{{ song.song.type }}</td>
+                            <td>{{ song.song.issue_time }}</td>
+                            <td>{{ song.song.duration }}</td>
+                            <td>
+                                <audio controls>
+                                    <source src="{{ song.song.audio_file.url }}" type="audio/mp3">
+                                    Your browser does not support the audio tag.
+                                </audio>
+                            </td>
+                            <td>
+                                
+                                    <form method="post" action="{% url 'delete_song_from_playlist' playlist_id=playlist.pl_id song_id=song.song.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    </form>
+                                
+                            </td>
+                            <!-- Add more columns if needed -->
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-danger">Playlist not found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

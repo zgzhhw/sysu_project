@@ -1,0 +1,35 @@
+<!-- play_song.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ song.name }} - 播放列表</title>
+    <!-- 其他样式和脚本链接... -->
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">{{ song.name }} - 播放列表</h2>
+        <div class="mb-3">
+            <h4>{{ song.name }}</h4>
+            <audio controls class="js-plyr">
+                <source src="{{ song.audio_file.url }}" type="audio/mp3">
+                Your browser does not support the audio tag.
+            </audio>
+        </div>
+        <!-- 其他歌曲条目... -->
+    </div>
+
+    <!-- 初始化 plyr -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const players = Array.from(document.querySelectorAll('.js-plyr'));
+            players.forEach(player => new Plyr(player, {
+                seekTime: 10,
+                hideControls: false
+            }));
+        });
+    </script>
+</body>
+</html>

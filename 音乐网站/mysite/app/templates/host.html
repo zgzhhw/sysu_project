@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主界面</title>
+    <style>
+        /* 样式可以根据需要进行自定义 */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>欢迎来到音乐网站</h1>
+    <button id="loginButton">登录</button>
+
+    <script>
+        // JavaScript 代码用于跳转到登录页面
+        document.getElementById('loginButton').addEventListener('click', function() {
+            window.location.href = "{% url 'login' %}";
+        });
+    </script>
+</body>
+</html>

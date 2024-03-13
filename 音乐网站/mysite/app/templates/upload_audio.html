@@ -1,0 +1,280 @@
+
+<!-- upload_audio.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上传音频</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 50px 0;
+            height: 100vh;
+            background: linear-gradient(45deg, #E0FFFF, #FAFAD2, #deedb0, #FFB6C1, #F08080, #DDA0DD, #D8BFD8, #DDA0DD, #FFB6C1, #FAFAD2, #f3e69e, #f5adad, #F0E68C); /* 柔和的背景线性渐变色 */
+            background-size: 800% 800%;
+            animation: changeBackground 10s infinite; /* 背景颜色渐变动画 */
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            width: 100%; /* 将宽度设置为100% */
+            max-width: 800px; /* 设置最大宽度，以防止表单过于宽敞 */
+            margin: 0 auto; /* 居中显示表单 */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        @keyframes changeBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 20% 50%;
+            }
+            50% {
+                background-position: 40% 50%;
+            }
+            75% {
+                background-position: 60% 50%;
+            }
+            100% {
+                background-position: 80% 50%;
+            }
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .search-icon {
+            margin-right: 5px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animated {
+            animation: fadeIn 0.8s ease;
+        }
+
+        .loading-icon {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .loading-icon i {
+            font-size: 24px;
+            animation: rotate 1s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .button {  
+            display: inline-block;  
+            padding: 10px 20px;  
+            color: #fff;  
+            text-decoration: none;  
+            border-radius: 50%; /* 圆形按钮 */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;  
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+            position: relative;
+            background-color: #888; /* 金属材质的颜色 */
+            opacity: 1.5; /* 设置不透明度 */
+        }  
+        .button:hover {  
+            background-color: #666; /* 按下时的颜色 */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* 按下时的阴影效果 */
+            opacity: 1; /* 按下时取消不透明度 */
+        }  
+        .button .tooltip {
+            display: none;
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+        .button:hover .tooltip {
+            display: block;
+        }
+        .button-home {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* 设置容器背景颜色和透明度 */
+            padding: 0px; /* 设置容器内边距 */
+            border-radius: 10px; /* 设置容器圆角 */
+        }
+
+        h2 {
+            color: #007bff; /* 设置标题颜色 */
+        }
+
+        .mb-4 {
+            border: 1px solid #ddd; /* 设置表单边框 */
+            border-radius: 10px; /* 设置表单圆角 */
+            padding: 20px; /* 设置表单内边距 */
+            background-color: #fff; /* 设置表单背景颜色 */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* 设置按钮背景颜色 */
+            border-color: #007bff; /* 设置按钮边框颜色 */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* 设置按钮悬停时的背景颜色 */
+            border-color: #0056b3; /* 设置按钮悬停时的边框颜色 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 增加点击特效的阴影 */
+        }
+
+        .custom-btn {
+            background-image: url("https://img.zcool.cn/community/0189945d3d1402a8012187f44914cf.jpg@1280w_1l_2o_100sh.jpg"); /* 替换为你的自定义按钮图片路径 */
+            background-size: cover; /* 控制自定义按钮图片尺寸 */
+            color: #fff; /* 设置文本颜色 */
+            border: none; /* 移除按钮边框 */
+            padding: 15px 20px; /* 设置按钮内边距 */
+            cursor: pointer; /* 设置鼠标样式为手型 */
+            border-radius: 10px; /* 设置按钮圆角 */
+        }
+
+        .custom-btn:hover {
+            background-color: rgba(0, 0, 0, 0.5); /* 设置悬停时的背景颜色和透明度 */
+        }
+
+        .btn-icon {
+            margin-right: 5px; /* 设置图标与文本之间的右边距 */
+        }
+
+        .form-group {
+            width: 80%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <a href="http://127.0.0.1:8000/app/home" class="button button-home">
+        <i class="fa fa-home "></i> 
+        <span class="tooltip">返回主页</span>
+    </a>  
+    <h2 class="h1">上传音频</h2>
+    <div class="container mt-5">
+        
+        <form method="post" enctype="multipart/form-data" class="mb-4">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_name">音频名称:</label>
+                {{ form.name }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_duration">时长:</label>
+                {{ form.duration }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_type">音频类型:</label>
+                {{ form.type }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_issue_time">发布时间:</label>
+                {{ form.issue_time }}
+            </div>
+
+            <div class="form-group">
+                <label for="id_audio_file">选择音频文件:</label>
+                {{ form.audio_file }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-upload btn-icon"></i>上传
+            </button>
+        </form>
+    </div>
+</body>
+</html>

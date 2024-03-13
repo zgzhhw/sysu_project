@@ -1,0 +1,55 @@
+<!-- favor_success.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favor Success</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .success-container {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .success-message {
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .return-button {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container success-container">
+        <div class="success-message">已经收藏过了! </div>
+        <!-- 使用 JavaScript 处理返回按钮点击事件 -->
+        <button class="return-button" onclick="goBack()">返回</button>
+    </div>
+    
+    <!-- 引入 jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        // JavaScript 函数，用于返回上一个页面
+        function goBack() {
+            // 使用 History API 返回上一个页面
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

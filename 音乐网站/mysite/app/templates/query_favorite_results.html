@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的喜欢</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 50px 0;
+            height: 100vh;
+            background: linear-gradient(45deg, #E0FFFF, #FAFAD2, #deedb0, #FFB6C1, #F08080, #DDA0DD, #D8BFD8, #DDA0DD, #FFB6C1, #FAFAD2, #f3e69e, #f5adad, #F0E68C); /* 柔和的背景线性渐变色 */
+            background-size: 800% 800%;
+            animation: changeBackground 10s infinite; /* 背景颜色渐变动画 */
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 80%; /* Set the width of the table */
+            margin: 20px auto; /* Center the table */
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        form {
+            display: inline-block; /* Align the form icon with the content */
+        }
+
+        i {
+            cursor: pointer;
+            color: #4caf50;
+        }
+
+        @keyframes changeBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 20% 50%;
+            }
+            50% {
+                background-position: 40% 50%;
+            }
+            75% {
+                background-position: 60% 50%;
+            }
+            100% {
+                background-position: 80% 50%;
+            }
+        }
+
+        .button {  
+            display: inline-block;  
+            padding: 10px 20px;  
+            color: #fff;  
+            text-decoration: none;  
+            border-radius: 50%; /* 圆形按钮 */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;  
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+            position: relative;
+            background-color: #888; /* 金属材质的颜色 */
+            opacity: 1.5; /* 设置不透明度 */
+        }  
+
+        .button:hover {  
+            background-color: #666; /* 按下时的颜色 */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* 按下时的阴影效果 */
+            opacity: 1; /* 按下时取消不透明度 */
+        }  
+
+        .button .tooltip {
+            display: none;
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+
+        .button:hover .tooltip {
+            display: block;
+        }
+
+        .button-home {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            background-color: rgba(250, 250, 250,0);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>我的喜欢</h1>
+    <a href="http://127.0.0.1:8000/app/home" class="button button-home">
+        <i class="fa fa-home"></i> 
+        <span class="tooltip">返回主页</span>
+    </a>  
+
+    {% if song_data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Song Name</th>
+                    <th>Audio</th>
+                    <th>Type</th>
+                    <th>Issue Time</th>
+                    <th>Duration</th>
+                    <th>Singers</th>
+                    <th>Album</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for song_info in song_data %}
+                    <tr>
+                        <td>{{ song_info.song.name }}</td>
+                        <td>
+                            <audio controls>
+                                <source src="{{ song_info.song.audio_file.url }}" type="audio/mp3">
+                                Your browser does not support the audio tag.
+                            </audio>
+                        </td>
+                        <td>{{ song_info.song.type }}</td>
+                        <td>{{ song_info.song.issue_time }}</td>
+                        <td>{{ song_info.song.duration }}</td>
+                        <td>{{ song_info.singer_names }}</td>
+                        <td>{{ song_info.album_name }}</td>
+                        <td>
+                            <form method="post" action="{% url 'delete_favorite_song' song_id=song_info.song.id %}">
+                                {% csrf_token %}
+                                <button type="submit"><i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No favorite songs found.</p>
+    {% endif %}
+
+</body>
+</html>

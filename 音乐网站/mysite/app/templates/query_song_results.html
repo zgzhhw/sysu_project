@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查询结果</title>
+    <!-- 在你的 HTML 中引入 Bootstrap 样式表 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .play-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="mb-4">查询结果</h2>
+        {% if songs %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">歌曲名</th>
+                        <th scope="col">歌手名</th>
+                        <th scope="col">类型</th>
+                        <th scope="col">发行时间</th>
+                        <th scope="col">时长</th>
+                        <th scope="col">音源</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for song in songs %}
+                        <tr>
+                            <td>{{ song.song.sname }}</td>
+                            <td>{{ song.singer_names }}</td>
+                            <td>{{ song.song.type }}</td>
+                            <td>{{ song.song.issue_time }}</td>
+                            <td>{{ song.song.duration }}</td>
+                            <td>
+                                <!-- 在按钮上添加 "type" 属性，指定按钮类型为 "button"，防止提交表单 -->
+                                <button type="button" class="play-btn" data-src="{{ song.song.audio }}" data-link="{{ song.song.link }}">播放</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-danger">未找到符合条件的歌曲。</p>
+        {% endif %}
+    </div>
+    <!-- 在文件底部添加 JavaScript 代码 -->
+    <script>
+        // 获取所有播放按钮
+        var playButtons = document.querySelectorAll('.play-btn');
+
+        // 为每个按钮添加点击事件
+        playButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                // 获取按钮上的音频源（二进制文件）和链接
+                var audioSrc = button.getAttribute('data-src');
+                var songLink = button.getAttribute('data-link');
+
+                // 使用 AudioContext 播放音频
+                var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                var audioBuffer;
+
+                fetch(audioSrc)
+                    .then(response => response.arrayBuffer())
+                    .then(buffer => audioContext.decodeAudioData(buffer))
+                    .then(decodedBuffer => {
+                        audioBuffer = decodedBuffer;
+
+                        var source = audioContext.createBufferSource();
+                        source.buffer = audioBuffer;
+                        source.connect(audioContext.destination);
+                        source.start();
+                    })
+                    .catch(error => console.error('Error loading audio:', error));
+
+                // 在播放音频后跳转到链接
+                window.location.href = 'http://127.0.0.1:8000/app/audio/';
+            });
+        });
+    </script>
+</body>
+</html>

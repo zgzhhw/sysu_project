@@ -1,0 +1,30 @@
+<!-- add_to_playlist.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add to Playlist</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- 其他样式或脚本文件... -->
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="mb-4">Add to Playlist</h2>
+        <p>Choose a playlist to add the song "{{ song.name }}" to:</p>
+        <form method="post" action="{% url 'add_to_playlist' song_id=song.id song_id_array=song_id_array%}">
+            {% csrf_token %}
+            <label for="selected_playlist">Select Playlist:</label>
+            <select name="selected_playlist" id="selected_playlist" class="form-control">
+                {% for playlist in user_playlists %}
+                    <option value="{{ playlist.pl_id }}">{{ playlist.pl_name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary mt-3">Add to Playlist</button>
+        </form>
+
+        <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
+    </div>
+    <!-- 其他样式或脚本文件... -->
+</body>
+</html>

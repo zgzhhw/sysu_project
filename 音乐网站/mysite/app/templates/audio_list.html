@@ -1,0 +1,73 @@
+<!-- audio_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音频列表</title>
+    <!-- 引入 Bootstrap 样式表 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- 引入 plyr 样式和脚本 -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css" />
+    <script src="https://cdn.plyr.io/3.6.2/plyr.js"></script>
+    <!-- 自定义样式 -->
+    <style>
+        body {
+            background-image: url("https://i.ytimg.com/vi/IAlGJAVyRe8/maxresdefault.jpg"); /* 替换为你的背景图片路径 */
+            background-size: cover; /* 控制背景图片尺寸 */
+            background-repeat: no-repeat; /* 防止背景图片重复 */
+            color: #333333fd; /* 设置文本颜色 */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.795); /* 设置容器背景颜色和透明度 */
+            padding: 20px; /* 设置容器内边距 */
+            border-radius: 10px; /* 设置容器圆角 */
+        }
+
+        h2 {
+            color: rgb(0, 17, 255); /* 设置标题颜色 */
+        }
+
+        .mb-3 {
+            border: 1px solid #dddddd; /* 设置每个音频项的边框 */
+            border-radius: 5px; /* 设置音频项圆角 */
+            padding: 15px; /* 设置音频项内边距 */
+            margin-bottom: 15px; /* 设置音频项之间的间距 */
+            background-color: #ffffffd4; /* 设置音频项背景颜色 */
+        }
+
+        audio {
+            width: 100%; /* 让音频播放器充满整个容器宽度 */
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">音频列表</h2>
+        {% for audio_file in audio_files %}
+            <div class="mb-3">
+                <h4>{{ audio_file.name }}</h4>
+                <audio controls class="js-plyr">
+                    <source src="{{ audio_file.audio_file.url }}" type="audio/mp3">
+                    Your browser does not support the audio tag.
+                </audio>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- 初始化 plyr -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const players = Array.from(document.querySelectorAll('.js-plyr'));
+            players.forEach(player => new Plyr(player, {
+                seekTime: 10,
+                hideControls: false
+            }));
+        });
+    </script>
+</body>
+</html>

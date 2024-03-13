@@ -1,0 +1,106 @@
+<!-- templates/registration/register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 50px 0;
+            height: 100vh;
+            background: linear-gradient(45deg, #E0FFFF, #FAFAD2, #deedb0, #FFB6C1, #F08080, #DDA0DD, #D8BFD8, #DDA0DD, #FFB6C1, #FAFAD2, #f3e69e, #f5adad, #F0E68C); /* 柔和的背景线性渐变色 */
+            background-size: 800% 800%;
+            animation: changeBackground 10s infinite; /* 背景颜色渐变动画 */
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 300px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        @keyframes changeBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 20% 50%;
+            }
+            50% {
+                background-position: 40% 50%;
+            }
+            75% {
+                background-position: 60% 50%;
+            }
+            100% {
+                background-position: 80% 50%;
+            }
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #login-link {
+            display: block;
+            margin-top: 10px;
+            color: #4caf50;
+            text-decoration: none;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background: linear-gradient(45deg, #ff8080, #80bfff);
+            }
+            100% {
+                background: linear-gradient(45deg, #80bfff, #ff8080);
+            }
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">注册</button>
+    </form>
+
+    <a id="login-link" href="{% url 'login' %}">已有账号？点击登录</a>
+    <script>
+        // 如果你希望在页面加载时执行一些 JavaScript，可以在这里添加脚本
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!-- templates/admin_playlists_results.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Playlist Results</title>
+</head>
+<body>
+    <h1>All Playlists (Admin View)</h1>
+    <ul>
+        {% for playlist in playlists %}
+            <li>
+                <strong>Playlist Name:</strong> {{ playlist.pl_name }}<br>
+                <strong>User:</strong> {{ playlist.user.username }}<br>
+                <strong>Tag:</strong> {{ playlist.tag }}<br>
+                <strong>Creation Time:</strong> {{ playlist.cr_time }}<br>
+                <strong>Number of Songs:</strong> {{ playlist.p_number }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

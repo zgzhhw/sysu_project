@@ -1,0 +1,330 @@
+<!-- query_audio_results.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> <!-- 引入 jQuery -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 50px 0;
+            height: 100vh;
+            background: linear-gradient(45deg, #E0FFFF, #FAFAD2, #deedb0, #FFB6C1, #F08080, #DDA0DD, #D8BFD8, #DDA0DD, #FFB6C1, #FAFAD2, #f3e69e, #f5adad, #F0E68C); /* 柔和的背景线性渐变色 */
+            background-size: 800% 800%;
+            animation: changeBackground 10s infinite; /* 背景颜色渐变动画 */
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 300px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        @keyframes changeBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 20% 50%;
+            }
+            50% {
+                background-position: 40% 50%;
+            }
+            75% {
+                background-position: 60% 50%;
+            }
+            100% {
+                background-position: 80% 50%;
+            }
+        }
+
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+        }
+
+        th, td {
+            border: 1px solid rgba(12, 221, 221, 0.781);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #ffffff;
+        }
+        tbody {
+            background-color: rgba(255, 255, 255, 0.1); /* 设置表格背景颜色及不透明度 */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animated {
+            animation: fadeIn 0.8s ease;
+        }
+
+        .button {  
+            display: inline-block;  
+            padding: 10px 20px;  
+            color: #fff;  
+            text-decoration: none;  
+            border-radius: 50%; /* 圆形按钮 */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;  
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+            position: relative;
+            background-color: #888; /* 金属材质的颜色 */
+            opacity: 1.5; /* 设置不透明度 */
+        }  
+        .button:hover {  
+            background-color: #666; /* 按下时的颜色 */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* 按下时的阴影效果 */
+            opacity: 1; /* 按下时取消不透明度 */
+        }  
+        .button .tooltip {
+            display: none;
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+        .button:hover .tooltip {
+            display: block;
+        }
+        .button-home {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-back {
+            position: fixed;
+            left: 20px;
+            top: 70px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button i {
+            margin-right: 0px;
+            color: #fff;
+        }
+
+        .button-add_to_playlist {
+            background-color: rgba(0, 0, 0, 0.2); /* 清除背景图像 */
+            position: relative;
+            font-size: 20px; /* 调整图标大小 */
+            color: #fff;
+        }
+
+        .button-add_to_favor {
+            background-color: rgba(0, 0, 0, 0.2); /* 清除背景图像 */
+            position: relative;
+            font-size: 20px; /* 调整图标大小 */
+            color: #fff;
+        }
+
+        .button-add_to_favor.clicked {
+            background-color: rgba(255, 255, 255, 0.2); /* Change to your desired red color */
+        }
+
+        .button-add_to_favor.clicked i {
+            color: #ff0000; /* Change to your desired red color */
+        }
+
+        .button-home {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-back {
+            position: fixed;
+            left: 20px;
+            top: 70px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <a href="http://127.0.0.1:8000/app/home" class="button button-home">
+        <i class="fa fa-home "></i> 
+        <span class="tooltip">返回主页</span>
+    </a>  
+
+    <a href="http://127.0.0.1:8000/app/audio" class="button button-back">
+        <i class="fa fa-arrow-left "></i> 
+        <span class="tooltip">返回查询</span>
+    </a>  
+    <h1 class="animated">查询结果</h1>
+        {% if song_data %}
+            <table class="animated">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center"></th>
+                        <th scope="col" class="text-center">歌曲</th>
+                        <th scope="col" class="text-center">歌手名</th>                       
+                        <th scope="col" class="text-center">歌曲类型</th>
+                        <th scope="col" class="text-center">发布时间</th>
+                        <th scope="col" class="text-center">时长</th>
+                        <th scope="col" class="text-center">所属专辑</th>
+                        <th scope="col" class="text-center">音源</th>
+                        <th scope="col" class="text-center">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for song in song_data %}
+                        <tr>
+                            <td class="text-center">
+                                {% if song_id_arr and not song.is_favorite%}
+                                    <a href="{% url 'add_to_favorite' song_id=song.song.id song_id_array=song_id_arr %}" class="button button-add_to_favor {% if song.is_favorite %}clicked{% endif %}">
+                                    <i class="fa fa-heart"></i>
+                                    <span class="tooltip">Add to Playlist</span>
+                                </a>
+                                {% elif song_id_arr and song.is_favorite%}
+                                    <a href="{% url 'delete_from_favorite' song_id=song.song.id song_id_array=song_id_arr %}" class="button button-add_to_favor {% if song.is_favorite %}clicked{% endif %}">
+                                    <i class="fa fa-heart"></i>
+                                    <span class="tooltip">Add to Playlist</span>
+                                </a>
+                                {% else %}
+                                <!-- Handle the case when song_id_arr is empty -->
+                                {% endif %}
+                        </td>
+                            <td class="text-center">{{ song.song.name }}</td>
+                            <td class="text-center">{{ song.singer_names }}</td>                           
+                            <td class="text-center">{{ song.song.type }}</td>
+                            <td class="text-center">{{ song.song.issue_time }}</td>
+                            <td class="text-center">{{ song.song.duration }}</td>
+                            <td class="text-center">{{ song.album_name }}</td>
+                            <td class="text-center">
+                                <audio controls>
+                                    <source src="{{ song.song.audio_file.url }}" type="audio/mp3">
+                                    Your browser does not support the audio tag.
+                                </audio>
+                            </td>
+                            <td class="text-center">
+                                <a href="{% url 'add_to_playlist' song_id=song.song.id song_id_array=song_id_arr%}" class="button button-add_to_playlist">
+                                    <i class="fa fa-plus"></i> 
+                                    <span class="tooltip">Add to Playlist</span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-danger">未找到符合条件的音频。</p>
+        {% endif %}
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var favorButtons = document.querySelectorAll('.button-add_to_favor');
+    
+            favorButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var songId = button.getAttribute('data-song-id');
+                    var isClicked = button.classList.contains('clicked');
+                    var heartIcon = button.querySelector('i.fa-heart');
+    
+                    // 根据当前状态判断是添加还是删除
+                    if (isClicked) {
+                        // 已经收藏，点击后删除
+                        removeFromFavorite(songId, button, heartIcon);
+                    } else {
+                        // 未收藏，点击后添加
+                        addToFavorite(songId, button, heartIcon);
+                    }
+                });
+            });
+    
+            // 添加到收藏夹
+            function addToFavorite(songId, button, heartIcon) {
+                // 使用 Ajax 请求将歌曲添加到收藏夹
+                $.get(`/add_to_favorite/${songId}/`, function(data) {
+                    if (data.status === 'success') {
+                        button.classList.add('clicked');
+                        if (heartIcon) {
+                            heartIcon.style.color = '#ff0000';
+                        }
+                    }
+                });
+            }
+    
+            // 从收藏夹中删除
+            function removeFromFavorite(songId, button, heartIcon) {
+                // 使用 Ajax 请求将歌曲从收藏夹中删除
+                $.get(`/remove_from_favorite/${songId}/`, function(data) {
+                    if (data.status === 'success') {
+                        button.classList.remove('clicked');
+                        if (heartIcon) {
+                            heartIcon.style.color = '#fff';
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+    
+</body>
+</html>

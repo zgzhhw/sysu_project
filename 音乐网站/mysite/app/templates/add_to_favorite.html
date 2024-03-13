@@ -1,0 +1,45 @@
+<!-- add_to_favorite.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Add to Favorites</h2>
+
+  <div id="favorite-status"></div>
+
+  <!-- Replace the button below with your actual trigger for adding to favorites -->
+  <button id="add-to-favorite-btn" data-song-id="{{ song.id }}" data-csrf-token="{% csrf_token %}">
+    Add to Favorites
+  </button>
+
+  <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
+
+  <script>
+    // jQuery is used for simplicity, make sure to include it in your project
+    $(document).ready(function() {
+      $('#add-to-favorite-btn').click(function() {
+        var songId = $(this).data('song-id');
+        var csrfToken = $(this).data('csrf-token');
+
+        $.ajax({
+          type: 'POST',
+          url: '{% url "add_to_favorite" song_id=song.id %}',
+          data: {
+            selected_playlist: 'some_playlist_id',  // Replace with your actual selected playlist
+            csrfmiddlewaretoken: csrfToken,
+          },
+          success: function(response) {
+            if (response.status === 'success') {
+              $('#favorite-status').html('Song added to favorites!');
+            } else {
+              $('#favorite-status').html('Error: ' + response.message);
+            }
+          },
+          error: function(error) {
+            console.log('Error:', error);
+          }
+        });
+      });
+    });
+  </script>
+{% endblock %}
